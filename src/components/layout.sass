@@ -1,0 +1,104 @@
+
+
+img
+  max-width: 100%
+
+a
+  text-decoration: none
+
+section
+  min-height: 100vh
+  box-sizing: border-box
+
+a
+  color: #4a7d6d
+  position: relative
+  -webkit-tap-highlight-color: transparent
+  nav &.active
+    color: #b0b097
+
+h2
+  margin-top: 0
+  margin-bottom: 0
+  display: inline-block
+  min-height: 1em
+  border-bottom: 1px solid white
+
+
+p:last-child
+  margin-bottom: -.25em
+
+figure > img
+  vertical-align: bottom
+
+h1
+  margin-top: 0
+  line-height: .48
+  margin-bottom: 0
+  white-space: nowrap
+  font-size: 62px
+  font-weight: 100
+
+h2
+  font-size: 36px
+  font-weight: 200
+
+h3
+  font-size: 12px
+  font-weight: 400
+  text-transform: uppercase
+  margin: 0 0 .5em 0
+
+address
+  font-style: inherit
+
+@font-face
+  font-family: 'Work Sans'
+  font-style: normal
+  font-weight: 100
+  src: url('/fonts/100-minimal.woff2')
+
+@font-face
+  font-family: 'Work Sans'
+  font-style: normal
+  font-weight: 200
+  src: url('/fonts/200.woff2')
+  
+@font-face
+  font-family: 'Work Sans'
+  font-style: normal
+  font-weight: 300
+  src: url('/fonts/300.woff2')
+  
+@font-face
+  font-family: 'Work Sans'
+  font-style: normal
+  font-weight: 400
+  src: url('/fonts/400.woff2')
+
+
+body
+  font-family: 'Work Sans', sans-serif
+  font-weight: 300
+  font-size: 20px
+  font-variant-numeric: oldstyle-nums
+  -moz-font-feature-settings: "onum"
+  -webkit-font-feature-settings: "onum"
+  font-feature-settings: "onum"
+  @media print
+    padding: 30px
+  @media (prefers-color-scheme: dark)
+    background-color: black
+    color: white
+
+a
+  color: #4a7d6d
+  text-decoration: none
+
+@media screen
+  .print-only
+    display: none !important
+
+@media print
+  .screen-only
+    display: none !important

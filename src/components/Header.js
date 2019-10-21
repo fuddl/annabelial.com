@@ -1,83 +1,83 @@
 import React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
+import { Link } from 'gatsby'
+import './header.sass';
+import './course.sass';
+import './logo.sass';
 
-const Wrapper = styled.div`
-  background: url("${props => props.theme.bgPattern}") #000;
-  display: flex;
-  position: relative;
-`
 
-const Content = styled.div`
-  margin: 0 auto;
-  max-width: ${props => props.theme.maxWidths.general};
-  padding: 3rem 1.0875rem 3rem 1.0875rem;
-  color: ${props => props.theme.colors.secondary};
-  text-align: center;
-  height: 600px;
-  @media (max-width: ${props => props.theme.breakpoints.s}) {
-    height: 500px;
+
+class Header extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: this.props.open ? this.props.open : false,
+    };
   }
-`
 
-const Avatar = styled.div`
-  height: 125px;
-  width: 125px;
-  margin: 0 auto;
-  image-rendering: -moz-crisp-edges;
-  image-rendering: -o-crisp-edges;
-  image-rendering: -webkit-optimize-contrast;
-  -ms-interpolation-mode: nearest-neighbor;
-
-  img {
-    border-radius: 50%;
+  handleMenu(e) {
+    this.setState({
+      open: e.target.checked
+    });
   }
-`
 
-const Name = styled.h1`
-  margin: 1rem 0 0.25rem 0;
-  color: ${props => props.theme.colors.color};
-`
-
-const Location = styled.div`
-  font-size: 0.9rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`
-
-const SocialMedia = styled.div`
-  margin-top: 2rem;
-
-  a {
-    margin: 0 0.3rem;
+  closeMenu() {
+    this.setState({
+      open: false
+    });
   }
-`
 
-const Header = ({ avatar, name, location, socialMedia }) => (
-  <Wrapper>
-    <Content>
-      <Avatar>
-        <img src={avatar} alt={name} />
-      </Avatar>
-      <Name>{name}</Name>
-      <Location>{location}</Location>
-      <SocialMedia>
-        {socialMedia.map(social => (
-          <a key={social.name} href={social.url} rel="noopener noreferrer" target="_blank">
-            {social.name}
-          </a>
-        ))}
-      </SocialMedia>
-    </Content>
-  </Wrapper>
-)
+  render() {
+    return (
+      <div className="card">
+        <input id="menu-open" type="checkbox" hidden checked={ this.state.open } onChange={ this.handleMenu.bind(this) } />
+        <label className="card__mark" htmlFor="menu-open" aria-label="Toggle the menu" tabIndex="1" translate="no">A</label>
+        <label className="card__overlay" htmlFor="menu-open"></label>
+        <div className="card__paper" itemScope="" itemType="http://schema.org/Person">
+          <link href="things/logo/logo.css" rel="stylesheet"/>
+          <Link className="logo" to='/' onMouseUp={ (e) => this.closeMenu() }>
+            <h1 className="logo__title" itemProp="name" translate="no">Anna Belial</h1>
+            <h2 className="logo__byline" itemProp="jobTitle">Photographer</h2>
+           </Link>
+          <link itemProp="image" href="meta/me.jpg" />
+          <link itemProp="sameAs" href="https://www.openstreetmap.org/node/3992505820" />
+          <link itemProp="sameAs" href="https://www.flickr.com/photos/91460105@N07/" />
+          <link itemProp="sameAs" href="https://plus.google.com/107299370270399125995" />
+          <link itemProp="sameAs" href="http://annabelial.deviantart.com/" />
+          <link itemProp="sameAs" href="https://commons.wikimedia.org/wiki/User:Alorin" />
+          <link itemProp="sameAs" href="https://twitter.com/Al_Orin" />
+          <link itemProp="sameAs" href="https://github.com/AnnaBelial" />
+          <link itemProp="sameAs" href="https://www.patreon.com/annabelial/" />
+          <link href="https://www.facebook.com/AnnaBelial/" itemProp="sameAs" />
+          <link href="https://500px.com/annabelial1601" itemProp="sameAs" />
+          <link href="http://annabelial.deviantart.com/" itemProp="sameAs" />
+          <nav className="course">
+            <header className="course__heading">Have a look at my</header>
+            <ul className="course__items">
+              <li><Link to="/portfolio" onMouseUp={ (e) => this.closeMenu() }>Portfolio</Link></li>
+            </ul>
+          </nav>
+          <link href="things/course/course.css" rel="stylesheet" />
+          <nav className="course">
+            <header className="course__heading">Contact me</header>
+            <ul className="course__items">
+              <li className="print-only"><a href="http://annabelial.com/" itemProp="sameAs">annabelial.com</a></li>
+              <li><a href="mailto:annabelial@me.com" itemProp="email">annabelial@me.com</a></li>
+              <li><a href="tel:+4915901807920" itemProp="telephone">+49&nbsp;159&nbsp;0180 7920</a></li>
+            </ul>
+          </nav>
+          <nav className="course screen-only">
+            <header className="course__heading">Find me</header>
+            <ul className="course__items">
+              <li><a href="https://www.instagram.com/annabelial/" itemProp="sameAs">Instagram</a></li>
+              <li><a href="https://www.youtube.com/channel/UCmlaMXD6rzm_9Ux1BC1a3pA" itemProp="sameAs">Videos</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    )
+  }
+}
 
 export default Header
-
-Header.propTypes = {
-  avatar: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  location: PropTypes.string.isRequired,
-  socialMedia: PropTypes.array.isRequired,
-}

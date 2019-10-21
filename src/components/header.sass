@@ -1,0 +1,73 @@
+$grid: 30px
+$max-breakpoint: 400
+$highlight-color: #4a7d6d
+
+@mixin font-size($size)
+  font-size: $size
+  @media all and (max-width: #{$max-breakpoint}px)
+    font-size: #{(($size/1px)/$max-breakpoint)*100}vw
+
+@media screen
+  .card__paper
+    position: fixed
+    @media (orientation: landscape)
+      width: 370px
+    @media (orientation: portrait)
+      left: 5vw
+    box-sizing: border-box
+    top: 5vw
+    max-height: 98vh
+    background-color: white
+    padding: 30px
+    color: black
+    box-shadow: 0 0 1vw black
+    right: 300vw
+    margin-right: 5vw
+    transform: translate(100vw, 0)
+    transition: transform .8s ease-out, right 0s .8s
+    z-index: 3
+    \:checked ~ &
+      transform: translate(0, 0)
+      transition: transform .8s ease-out
+      right: 0
+
+
+.card__mark
+  @include font-size(62px)
+  position: fixed
+  background-color: white
+  color: black
+  right: 5vw
+  top: 5vw
+  width: 82px
+  height: 82px
+  line-height: 82px
+  z-index: 2
+  display: block
+  box-shadow: 0 0 1vw black
+  text-align: center
+  transition: background-color .5s, color .5s
+  cursor: pointer
+  transform: translate(0, 0)
+  transition: transform .8s ease-out
+  -webkit-tap-highlight-color: transparent
+  font-weight: 100
+  \:checked ~ &
+    transform: translate(100vw, 0)
+    transition: transform .8s ease-out, right 0s .8s
+    right: 300vw
+  &:hover,
+  &:focus
+    color: $highlight-color
+    outline: none
+
+.card__overlay
+  position: fixed
+  top: 0
+  bottom: 0
+  left: 0
+  right: 0
+  z-index: 2
+  display: none
+  \:checked ~ &
+    display: block

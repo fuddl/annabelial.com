@@ -1,5 +1,10 @@
 const path = require('path')
 const _ = require('lodash')
+const fastExif = require('fast-exif');
+const xmpReader = require('xmp-reader');
+const get = require('lodash/get');
+const iptcReader = require('node-iptc');
+const fs = require('fs');
 
 // graphql function doesn't throw an error so we have to check to check for the result.errors to throw manually
 const wrapper = promise =>
@@ -10,8 +15,8 @@ const wrapper = promise =>
     return result
   })
 
-exports.onCreateNode = ({ node, actions }) => {
-  const { createNodeField } = actions
+exports.onCreateNode = ({ node, getNode, boundActionCreators }) => {
+  const { createNodeField } = boundActionCreators
   let slug
   // Search for MDX filenodes
   if (node.internal.type === 'Mdx') {
@@ -31,24 +36,52 @@ exports.onCreateNode = ({ node, actions }) => {
     }
     createNodeField({ node, name: 'slug', value: slug })
   }
+
+  if(node.extension === 'jpg') {
+    const absolutePath = node.absolutePath;
+    fastExif.read(absolutePath)
+      .then((exifData) => {
+        const title        = get( exifData, [ 'image', 'ImageDescription' ], null );
+        const location     = get( exifData, [ 'image', 'DocumentName' ], null );
+
+        createNodeField({
+          node,
+          name: 'exif',
+          value: { title, location }
+        });
+      })
+      .catch((err) => console.error(err));
+    /*
+    fs.readFile(absolutePath, function(err, data) {
+      if (err) { throw err }
+      let iptc = iptcReader(data);
+      let xmp =   xmpReader.fromBuffer(data);
+      console.log(iptc);
+      console.log(xmp);
+    });
+    */
+  }
+
 }
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
 
   const projectTemplate = require.resolve('./src/templates/project.js')
-
-  const result = await wrapper(
+  const projectResult = await wrapper(
     graphql(`
       {
-        projects: allMdx(sort: { fields: [frontmatter___date], order: DESC }) {
+        projects: allMdx(sort: { fields: [frontmatter___date], order: DESC }, filter: {fileAbsolutePath: {regex: "/content/projects/"}}) {
           nodes {
             fileAbsolutePath
             fields {
               slug
             }
             frontmatter {
-              title
+              title,
+              cover {
+                absolutePath
+              }
             }
           }
         }
@@ -56,12 +89,9 @@ exports.createPages = async ({ graphql, actions }) => {
     `)
   )
 
-  const projectPosts = result.data.projects.nodes
+  const projectPosts = projectResult.data.projects.nodes
 
   projectPosts.forEach((n, index) => {
-    const next = index === 0 ? null : projectPosts[index - 1]
-    const prev = index === projectPosts.length - 1 ? null : projectPosts[index + 1]
-
     createPage({
       path: n.fields.slug,
       component: projectTemplate,
@@ -69,8 +99,37 @@ exports.createPages = async ({ graphql, actions }) => {
         slug: n.fields.slug,
         // Pass the current directory of the project as regex in context so that the GraphQL query can filter by it
         absolutePathRegex: `/^${path.dirname(n.fileAbsolutePath)}/`,
-        prev,
-        next,
+      },
+    })
+  })
+
+  const pageTemplate = path.resolve(`src/templates/page.js`)
+  const pageResult = await graphql(`
+    {
+      pages: allMdx(filter: {fileAbsolutePath: {regex: "/content/pages/"}}) {
+        nodes {
+          fileAbsolutePath
+          fields {
+            slug
+          }
+          frontmatter {
+            title
+          }
+          body
+        }
+      }
+    }
+  `)
+
+  const pages = pageResult.data.pages.nodes
+
+  pages.forEach((n) => {
+    createPage({
+      path: n.fields.slug,
+      component: pageTemplate,
+      context: {
+        title: n.frontmatter.title,
+        body: n.body,
       },
     })
   })

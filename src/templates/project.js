@@ -1,58 +1,20 @@
 import React from 'react'
-import Img from 'gatsby-image'
 import PropTypes from 'prop-types'
 import { graphql } from 'gatsby'
 import styled from 'styled-components'
 
-import { Layout, ProjectHeader, ProjectPagination, SEO } from '../components'
+import { Layout, Header, SEO } from '../components'
+import Panel from '../components/panel'
 import config from '../../config/site'
-
-const BG = styled.div`
-  background-color: ${props => props.theme.colors.bg};
-  position: relative;
-  padding: 2rem 0 0 0;
-`
-
-const OuterWrapper = styled.div`
-  padding: 0 ${props => props.theme.contentPadding};
-  margin: -10rem auto 0 auto;
-`
-
-const InnerWrapper = styled.div`
-  position: relative;
-  max-width: ${props => `${props.theme.maxWidths.project}px`};
-  margin: 0 auto;
-`
 
 const Project = ({ pageContext: { slug, prev, next }, data: { project: postNode, images } }) => {
   const project = postNode.frontmatter
 
   return (
     <Layout customSEO>
+      <Header />
       <SEO postPath={slug} postNode={postNode} postSEO />
-      <ProjectHeader
-        avatar={config.avatar}
-        name={config.name}
-        date={project.date}
-        title={project.title}
-        areas={project.areas}
-        text={postNode.body}
-      />
-      <BG>
-        <OuterWrapper>
-          <InnerWrapper>
-            {images.nodes.map(image => (
-              <Img
-                alt={image.name}
-                key={image.childImageSharp.fluid.src}
-                fluid={image.childImageSharp.fluid}
-                style={{ margin: '3rem 0' }}
-              />
-            ))}
-          </InnerWrapper>
-          <ProjectPagination next={next} prev={prev} />
-        </OuterWrapper>
-      </BG>
+      <Panel images={images} />
     </Layout>
   )
 }
@@ -89,11 +51,26 @@ export const pageQuery = graphql`
     ) {
       nodes {
         name
+        colors {
+          muted
+        }
         childImageSharp {
-          fluid(maxWidth: 1600, quality: 90) {
+          landscape: fluid(maxWidth: 1000, maxHeight: 480, quality: 90) {
             ...GatsbyImageSharpFluid_withWebp
           }
+          portrait: fluid(maxWidth: 480, maxHeight: 480, quality: 90) {
+            ...GatsbyImageSharpFluid_withWebp
+          }
+          full: fluid(maxHeight: 900, quality: 90) {
+            ...GatsbyImageSharpFluid_withWebp
+          }
+          original {
+            height
+            width
+            src
+          }
         }
+
       }
     }
     project: mdx(fields: { slug: { eq: $slug } }) {
@@ -115,7 +92,6 @@ export const pageQuery = graphql`
         }
         date(formatString: "DD.MM.YYYY")
         title
-        areas
       }
     }
   }
