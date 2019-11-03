@@ -72,6 +72,7 @@ class Header extends React.Component {
             <ul className="course__items">
               <li><a href="https://www.instagram.com/annabelial/" itemProp="sameAs">Instagram</a></li>
               <li><a href="https://www.youtube.com/channel/UCmlaMXD6rzm_9Ux1BC1a3pA" itemProp="sameAs">Videos</a></li>
+              <li><Link to="/imprint" onMouseUp={ (e) => this.closeMenu() }>Imprint</Link></li>
             </ul>
           </nav>
         </div>

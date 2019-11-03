@@ -12,7 +12,7 @@ const Index = ({
   },
 }) => (
   <Layout>
-    <Header avatar={config.avatar} name={config.name} location={config.location} socialMedia={config.socialMedia} />
+    <Header open={ true } avatar={config.avatar} name={config.name} location={config.location} socialMedia={config.socialMedia} />
     {nodes.map((project, index) => (
       <Card
         delay={index}
