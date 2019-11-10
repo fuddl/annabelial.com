@@ -19,7 +19,7 @@ const SEO = ({ postNode, postPath, postSEO }) => {
 
   if (postSEO) {
     const postMeta = postNode.frontmatter
-    const postImage = postMeta.cover.childImageSharp.resize.src
+    const postImage = postMeta.covers[0].childImageSharp.resize.src
     title = `${postMeta.title} | ${config.siteTitle}`
     description = postNode.excerpt || config.siteDescription
     image = `${homeURL}${postImage}`

@@ -79,7 +79,7 @@ exports.createPages = async ({ graphql, actions }) => {
             }
             frontmatter {
               title,
-              cover {
+              covers {
                 absolutePath
               }
             }

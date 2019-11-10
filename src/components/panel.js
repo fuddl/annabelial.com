@@ -11,6 +11,7 @@ class Panel extends React.Component {
       images: {},
       visibleImages: [],
       currentLBimage: null,
+      contextualVisible: false,
     };
     this.props.images.nodes.map( (image) =>  {
       this.state.images[image.childImageSharp.original.src] = React.createRef();
@@ -33,11 +34,25 @@ class Panel extends React.Component {
   }
   openLightbox(ref) {
     this.setState({
-      lightbox: true
+      lightbox: true,
+      contextualVisible: false,
     }, () => {
       ref.current.scrollIntoView();
     });
   }
+  closeLightbox() {
+    this.setState({
+      lightbox: false
+    });
+  }
+
+  toggleContextual() {
+    let lastState = this.state.contextualVisible;
+    this.setState({
+      contextualVisible: !lastState,
+    });
+  }
+
   handleWindowScroll(e) {
     let visible = [];
     for (let image in this.state.images) {
@@ -83,13 +98,19 @@ class Panel extends React.Component {
 
   render() {
 
+    let contextual = (
+      <nav className={ 'panel__contextual' + (!this.state.contextualVisible ? ' panel__contextual--hidden' : '') }>
+        <button onClick={ (e) => this.closeLightbox() }>‹</button>
+      </nav>
+    );
+
     return (
       <div className="panel">
         <div
           className={ !this.state.lightbox ? "panel__sheet" : "panel__lighbox" }
           onScroll={ (e) => this.handleLBScroll() }
         >
-          {this.props.images.nodes.map( (image) =>  {
+          { this.props.images.nodes.map( (image) =>  {
             let id = image.childImageSharp.original.src;
             let h = image.childImageSharp.full.aspectRatio > 1;
             let preferred = this.state.lightbox ? image.childImageSharp.full : h ? image.childImageSharp.landscape : image.childImageSharp.portrait;
@@ -103,11 +124,12 @@ class Panel extends React.Component {
               </>
             );
             let ref = this.state.images[id];
+
             return (
               <figure
                 ref={ ref }
                 className={ figureClass }
-                onClick={ (e) => this.openLightbox(ref) }
+                onClick={ this.state.lightbox ? (e) => this.toggleContextual() : (e) => this.openLightbox(ref) }
                 key={ image.childImageSharp.original.src }
                 style={ !this.state.lightbox ? placeholderStyle : {} }
                >
@@ -118,11 +140,12 @@ class Panel extends React.Component {
                       src={ preferred.srcSetWebp.split(' ')[0] }
                       className={ this.state.lightbox ? 'lightbox-canvas': '' }
                     />
-                  </picture>
+                   </picture>
               </figure>
             )
             })
           }
+          { this.state.lightbox ? contextual : null }
         </div>
       </div>
     )

@@ -75,6 +75,7 @@
   overflow:
     x: auto
     y: hidden
+  scrollbar-width: thin
   z-index: 2
   position: relative
   height: 100vh
@@ -109,3 +110,23 @@
   display: inline-block
   min-height: 29.719vw
   vertical-align: bottom
+
+.panel__contextual
+  position: fixed
+  left: 0
+  top: 0
+  right: 0
+  background: white
+  transition: opacity .25s
+  > button
+    line-height: 48px
+    min-width: 48px
+    font-size: 36px
+    font-weight: 200
+    background: none
+    border: none
+    padding-bottom: .1em
+
+.panel__contextual--hidden
+  opacity: 0
+  pointer-events: none
