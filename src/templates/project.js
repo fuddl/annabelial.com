@@ -83,7 +83,7 @@ export const pageQuery = graphql`
         }
       }
       frontmatter {
-        cover {
+        covers {
           childImageSharp {
             resize(width: 800) {
               src
