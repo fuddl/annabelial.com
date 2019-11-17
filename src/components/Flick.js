@@ -31,8 +31,8 @@ class Flick extends React.Component {
       index++;
       return ( 
         <picture className={ 'flick__image' + (this.state.mounted == true && index != this.state.current ? ' flick__image--hidden' : '') }>
-          <source srcSet={ cover.childImageSharp.fluid.srcSetWebp } format="image/webp" />
           <source srcSet={ cover.childImageSharp.fluid.srcSet } format="image/jpg" />
+          <source srcSet={ cover.childImageSharp.fluid.srcSetWebp } format="image/webp" />
           <img src={ cover.childImageSharp.fluid.srcSetWebp.split(' ')[0] } />
         </picture>
       );

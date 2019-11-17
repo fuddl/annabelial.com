@@ -119,8 +119,8 @@ class Panel extends React.Component {
             let visible = this.state.visibleImages.includes(id);
             let sources = (
               <>
-                <source srcSet={ preferred.srcSetWebp } format="image/webp" />
                 <source srcSet={ preferred.srcSet } format="image/jpg" />
+                <source srcSet={ preferred.srcSetWebp } format="image/webp" />
               </>
             );
             let ref = this.state.images[id];
