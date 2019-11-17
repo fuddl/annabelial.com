@@ -35,7 +35,6 @@ class Header extends React.Component {
         <label className="card__mark" htmlFor="menu-open" aria-label="Toggle the menu" tabIndex="1" translate="no">A</label>
         <label className="card__overlay" htmlFor="menu-open"></label>
         <div className="card__paper" itemScope="" itemType="http://schema.org/Person">
-          <link href="things/logo/logo.css" rel="stylesheet"/>
           <Link className="logo" to='/' onMouseUp={ (e) => this.closeMenu() }>
             <h1 className="logo__title" itemProp="name" translate="no">Anna Belial</h1>
             <h2 className="logo__byline" itemProp="jobTitle">Photographer</h2>
@@ -58,7 +57,6 @@ class Header extends React.Component {
               <li><Link to="/portfolio" onMouseUp={ (e) => this.closeMenu() }>Portfolio</Link></li>
             </ul>
           </nav>
-          <link href="things/course/course.css" rel="stylesheet" />
           <nav className="course">
             <header className="course__heading">Contact me</header>
             <ul className="course__items">
