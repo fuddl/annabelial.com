@@ -13,8 +13,8 @@ class Panel extends React.Component {
       currentLBimage: null,
       contextualVisible: false,
     };
-    this.props.images.nodes.map( (image) =>  {
-      this.state.images[image.childImageSharp.original.src] = React.createRef();
+    this.props.images.map( (image) =>  {
+      this.state.images[image.file.childImageSharp.original.src] = React.createRef();
     });
   }
   isNorthOfBottom(image) {
@@ -110,12 +110,16 @@ class Panel extends React.Component {
           className={ !this.state.lightbox ? "panel__sheet" : "panel__lighbox" }
           onScroll={ (e) => this.handleLBScroll() }
         >
-          { this.props.images.nodes.map( (image) =>  {
-            let id = image.childImageSharp.original.src;
-            let h = image.childImageSharp.full.aspectRatio > 1;
-            let preferred = this.state.lightbox ? image.childImageSharp.full : h ? image.childImageSharp.landscape : image.childImageSharp.portrait;
+          { this.props.images.map( (image) =>  {
+            let id = image.file.childImageSharp.original.src;
+            let h = image.file.childImageSharp.full.aspectRatio > 1;
+            console.log(image);
+            if (image.layout != '') {
+              h = image.layout === 'horizontal';
+            }
+            let preferred = this.state.lightbox ? image.file.childImageSharp.full : h ? image.file.childImageSharp.landscape : image.file.childImageSharp.portrait;
             let figureClass = this.state.lightbox ? 'panel__lighbox-image' : 'panel__sheet-image' + (h ? ' panel__sheet-image--horizontal' : ' panel__sheet-image--vertical');
-            let placeholderStyle = { backgroundColor: image.colors.muted };
+            let placeholderStyle = { backgroundColor: image.file.colors.muted };
             let visible = this.state.visibleImages.includes(id);
             let sources = (
               <>
@@ -130,13 +134,14 @@ class Panel extends React.Component {
                 ref={ ref }
                 className={ figureClass }
                 onClick={ this.state.lightbox ? (e) => this.toggleContextual() : (e) => this.openLightbox(ref) }
-                key={ image.childImageSharp.original.src }
+                key={ image.file.childImageSharp.original.src }
                 style={ !this.state.lightbox ? placeholderStyle : {} }
                >
                   <picture>
                     { visible ? sources : (<noscript>{ sources }</noscript>)}
                     <img
-                      alt={ image.name }
+                      alt={ image.desc }
+                      title={ image.title }
                       src={ preferred.srcSetWebp.split(' ')[0] }
                       className={ this.state.lightbox ? 'lightbox-canvas': '' }
                     />

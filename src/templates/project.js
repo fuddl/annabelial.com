@@ -9,12 +9,13 @@ import config from '../../config/site'
 
 const Project = ({ pageContext: { slug, prev, next }, data: { project: postNode, images } }) => {
   const project = postNode.frontmatter
+  const panes = postNode.frontmatter.images
 
   return (
     <Layout customSEO>
       <Header />
       <SEO postPath={slug} postNode={postNode} postSEO />
-      <Panel images={images} />
+      <Panel images={panes} />
     </Layout>
   )
 }
@@ -92,6 +93,34 @@ export const pageQuery = graphql`
         }
         date(formatString: "DD.MM.YYYY")
         title
+        images {
+          focus
+          desc
+          model
+          layout
+          title
+          file {
+            colors {
+              muted
+            }
+            childImageSharp {
+              landscape: fluid(maxWidth: 1000, maxHeight: 480, quality: 90) {
+                ...GatsbyImageSharpFluid_withWebp
+              }
+              portrait: fluid(maxWidth: 480, maxHeight: 480, quality: 90) {
+                ...GatsbyImageSharpFluid_withWebp
+              }
+              full: fluid(maxHeight: 900, quality: 90) {
+                ...GatsbyImageSharpFluid_withWebp
+              }
+              original {
+                height
+                width
+                src
+              }
+            }
+          }
+        }
       }
     }
   }
