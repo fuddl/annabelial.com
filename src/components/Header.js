@@ -54,23 +54,23 @@ class Header extends React.Component {
           <nav className="course">
             <header className="course__heading">Have a look at my</header>
             <ul className="course__items">
-              <li><Link to="/portfolio" onMouseUp={ (e) => this.closeMenu() }>Portfolio</Link></li>
+              <li className="course__item"><Link to="/portfolio" onMouseUp={ (e) => this.closeMenu() }>Portfolio</Link></li>
             </ul>
           </nav>
           <nav className="course">
             <header className="course__heading">Contact me</header>
             <ul className="course__items">
-              <li className="print-only"><a href="http://annabelial.com/" itemProp="sameAs">annabelial.com</a></li>
-              <li><a href="mailto:annabelial@me.com" itemProp="email">annabelial@me.com</a></li>
-              <li><a href="tel:+4915901807920" itemProp="telephone">+49&nbsp;159&nbsp;0180 7920</a></li>
+              <li className="course__item print-only"><a href="http://annabelial.com/" itemProp="sameAs">annabelial.com</a></li>
+              <li className="course__item"><a href="mailto:annabelial@me.com" itemProp="email">annabelial@me.com</a></li>
+              <li className="course__item"><a href="tel:+4915901807920" itemProp="telephone">+49&nbsp;159&nbsp;0180 7920</a></li>
             </ul>
           </nav>
           <nav className="course screen-only">
             <header className="course__heading">Find me</header>
             <ul className="course__items">
-              <li><a href="https://www.instagram.com/annabelial/" itemProp="sameAs">Instagram</a></li>
-              <li><a href="https://www.youtube.com/channel/UCmlaMXD6rzm_9Ux1BC1a3pA" itemProp="sameAs">Videos</a></li>
-              <li><Link to="/imprint" onMouseUp={ (e) => this.closeMenu() }>Imprint</Link></li>
+              <li className="course__item"><a href="https://www.instagram.com/annabelial/" itemProp="sameAs">Instagram</a></li>
+              <li className="course__item"><a href="https://www.youtube.com/channel/UCmlaMXD6rzm_9Ux1BC1a3pA" itemProp="sameAs">Videos</a></li>
+              <li className="course__item course__footer"><Link to="/imprint" onMouseUp={ (e) => this.closeMenu() }>Imprint</Link></li>
             </ul>
           </nav>
         </div>
