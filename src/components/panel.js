@@ -113,7 +113,6 @@ class Panel extends React.Component {
           { this.props.images.map( (image) =>  {
             let id = image.file.childImageSharp.original.src;
             let h = image.file.childImageSharp.full.aspectRatio > 1;
-            console.log(image);
             if (image.layout != '') {
               h = image.layout === 'horizontal';
             }

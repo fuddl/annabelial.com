@@ -34,23 +34,11 @@ class Header extends React.Component {
         <input id="menu-open" type="checkbox" hidden checked={ this.state.open } onChange={ this.handleMenu.bind(this) } />
         <label className="card__mark" htmlFor="menu-open" aria-label="Toggle the menu" tabIndex="1" translate="no">A</label>
         <label className="card__overlay" htmlFor="menu-open"></label>
-        <div className="card__paper" itemScope="" itemType="http://schema.org/Person">
+        <aside className="card__paper" itemScope="" itemType="http://schema.org/Person">
           <Link className="logo" to='/' onMouseUp={ (e) => this.closeMenu() }>
             <h1 className="logo__title" itemProp="name" translate="no">Anna Belial</h1>
             <h2 className="logo__byline" itemProp="jobTitle">Photographer</h2>
            </Link>
-          <link itemProp="image" href="meta/me.jpg" />
-          <link itemProp="sameAs" href="https://www.openstreetmap.org/node/3992505820" />
-          <link itemProp="sameAs" href="https://www.flickr.com/photos/91460105@N07/" />
-          <link itemProp="sameAs" href="https://plus.google.com/107299370270399125995" />
-          <link itemProp="sameAs" href="http://annabelial.deviantart.com/" />
-          <link itemProp="sameAs" href="https://commons.wikimedia.org/wiki/User:Alorin" />
-          <link itemProp="sameAs" href="https://twitter.com/Al_Orin" />
-          <link itemProp="sameAs" href="https://github.com/AnnaBelial" />
-          <link itemProp="sameAs" href="https://www.patreon.com/annabelial/" />
-          <link href="https://www.facebook.com/AnnaBelial/" itemProp="sameAs" />
-          <link href="https://500px.com/annabelial1601" itemProp="sameAs" />
-          <link href="http://annabelial.deviantart.com/" itemProp="sameAs" />
           <nav className="course">
             <header className="course__heading">Have a look at my</header>
             <ul className="course__items">
@@ -73,7 +61,10 @@ class Header extends React.Component {
               <li className="course__item course__footer"><Link to="/imprint" onMouseUp={ (e) => this.closeMenu() }>Imprint</Link></li>
             </ul>
           </nav>
-        </div>
+          <link itemProp="sameAs" href="https://www.openstreetmap.org/node/3992505820" />
+          <link itemProp="sameAs" href="https://commons.wikimedia.org/wiki/User:Alorin" />
+          <link itemProp="sameAs" href="https://www.vogue.it/photovogue/portfolio/?id=163362" />
+        </aside>
       </div>
     )
   }

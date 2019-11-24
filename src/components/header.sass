@@ -7,19 +7,19 @@ $highlight-color: #4a7d6d
   @media all and (max-width: #{$max-breakpoint}px)
     font-size: #{(($size/1px)/$max-breakpoint)*100}vw
 
-@media screen
-  .card__paper
-    position: fixed
-    @media (orientation: landscape)
-      width: 370px
-    @media (orientation: portrait)
-      left: 5vw
-    box-sizing: border-box
+.card__paper
+  position: fixed
+  @media (orientation: landscape)
+    width: 370px
+  @media (orientation: portrait)
+    left: 5vw
+  box-sizing: border-box
+  max-height: 98vh
+  background-color: white
+  padding: 30px
+  color: black
+  @media screen
     top: 5vw
-    max-height: 98vh
-    background-color: white
-    padding: 30px
-    color: black
     box-shadow: 0 0 1vw black
     right: 300vw
     margin-right: 5vw

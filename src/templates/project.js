@@ -104,10 +104,10 @@ export const pageQuery = graphql`
               muted
             }
             childImageSharp {
-              landscape: fluid(maxWidth: 1000, maxHeight: 777, quality: 90, cropFocus: ENTROPY) {
+              landscape: fluid(maxWidth: 1000, maxHeight: 777, quality: 90, cropFocus: ATTENTION) {
                 ...GatsbyImageSharpFluid_withWebp
               }
-              portrait: fluid(maxWidth: 480, maxHeight: 777, quality: 90, cropFocus: ENTROPY) {
+              portrait: fluid(maxWidth: 480, maxHeight: 777, quality: 90, cropFocus: ATTENTION) {
                 ...GatsbyImageSharpFluid_withWebp
               }
               full: fluid(maxHeight: 900, quality: 90) {
