@@ -25,7 +25,7 @@ class Panel extends React.Component {
   detectLoadableLBImages(image) {
     const rect = image.getBoundingClientRect();
     const windowWidth = (window.innerWidth || document.documentElement.clientWidth);
-    return (rect.left-1 <= windowWidth) && ((rect.left+1 + rect.width) >= 0);
+    return (rect.left-windowWidth <= windowWidth) && ((rect.left+windowWidth + rect.width) >= 0);
   }
   isCurrentLBImage(image) {
     const rect = image.getBoundingClientRect();
