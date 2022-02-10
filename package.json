@@ -47,7 +47,7 @@
     "gatsby-transformer-sharp": "^2.2.16",
     "lodash": "^4.17.15",
     "node-iptc": "^1.0.5",
-    "node-sass": "^4.12.0",
+    "node-sass": "^7.0.0",
     "normalize.css": "^8.0.1",
     "polished": "^3.4.1",
     "prop-types": "^15.7.2",
